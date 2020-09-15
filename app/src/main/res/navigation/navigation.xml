@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/taskListsFragment">
+
+    <fragment
+        android:id="@+id/taskListsFragment"
+        android:name="com.ruazosa.todolist.view.TaskListsFragment"
+        android:label="fragment_task_lists"
+        tools:layout="@layout/fragment_task_lists" >
+        <action
+            android:id="@+id/addingTaskDirection"
+            app:destination="@id/addingTaksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addingTaksFragment"
+        android:name="com.ruazosa.todolist.view.AddingTaksFragment"
+        android:label="fragment_adding_taks"
+        tools:layout="@layout/fragment_adding_taks" >
+        <action
+            android:id="@+id/addedTaskDirection"
+            app:destination="@id/taskListsFragment" />
+    </fragment>
+</navigation>

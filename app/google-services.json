@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "62189949182",
+    "firebase_url": "https://pinboard-2492a.firebaseio.com",
+    "project_id": "pinboard-2492a",
+    "storage_bucket": "pinboard-2492a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62189949182:android:efbc0add1a0c4a4e1e95af",
+        "android_client_info": {
+          "package_name": "com.ruazosa.todolist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62189949182-uj571tsaokhomhqva5puq5ch69opmva1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ruazosa.todolist",
+            "certificate_hash": "7c601da4fd63f33dc3b83b84d720b888d2cde4bc"
+          }
+        },
+        {
+          "client_id": "62189949182-e1m1ma5elhu0la2r30hncc3skgep1ef2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_N_zpsDHfN3mXXtOaYVNuz5GKYtVRQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62189949182-e1m1ma5elhu0la2r30hncc3skgep1ef2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

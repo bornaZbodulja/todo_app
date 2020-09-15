@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.AddingTaksFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="15dp"
+            android:layout_margin="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <EditText
+                    android:textSize="18sp"
+                    android:id="@+id/newTaskDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:hint="@string/task_description"/>
+
+                <Switch
+                    android:id="@+id/newTaskReminderSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newTaskDescription"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@id/switcherImage"/>
+
+                <ImageView
+                    android:id="@+id/switcherImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/newTaskDescription"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/reminder_picture"
+                    android:layout_marginLeft="50dp" />
+
+                <Button
+                    android:id="@+id/newTaskSaveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newTaskReminderSwitch"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/save_text"
+                    android:textStyle="bold"
+                    android:background="@color/colorAccent"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    android:padding="10dp"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</FrameLayout>
