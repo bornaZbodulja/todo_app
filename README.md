@@ -1,1 +1,2 @@
-# todo_app
+# ToDo List application
+ToDo application made in Kotlin.
