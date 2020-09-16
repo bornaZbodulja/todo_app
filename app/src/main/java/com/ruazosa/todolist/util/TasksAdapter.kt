@@ -1,5 +1,6 @@
 package com.ruazosa.todolist.util
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ruazosa.todolist.R
 import com.ruazosa.todolist.model.Task
 import kotlinx.android.synthetic.main.task_item.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class TasksAdapter(tasksList: List<Task>): RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+class TasksAdapter(tasksList: List<Task>, context: Context): RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
 
     private var tasks: MutableList<Task> = tasksList.toMutableList()
+    private val currentContext = context
 
     fun updateTasksList(newTasksList: List<Task>){
         tasks.clear()
@@ -40,7 +44,24 @@ class TasksAdapter(tasksList: List<Task>): RecyclerView.Adapter<TasksAdapter.Vie
         }
         holder.itemView.taskDateAdded.text = Utils.dateFormatter(currentTask.timeAdded)
 
-        
+        holder.itemView.taskCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            when(isChecked){
+                true -> { currentTask.taskChecked = 1 }
+                false -> { currentTask.taskChecked = 0 }
+            }
+            updateTask(currentTask)
+
+        }
+    }
+
+    private fun updateTask(currentTask: Task){
+        GlobalScope.launch {
+            val tasksDao = TasksDatabase(currentContext).taskDao()
+            tasksDao.updateTask(currentTask)
+            val updatedTasksList = tasksDao.getUnfinishedTasks() as MutableList<Task>
+            updateTasksList(updatedTasksList)
+
+        }
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {

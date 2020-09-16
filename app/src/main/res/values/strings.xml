@@ -4,5 +4,7 @@
     <string name="task_description">Task Description</string>
     <string name="save_text">Add Task</string>
     <string name="empty_task_list">No Tasks To Do</string>
+    <string name="reminder_text">Reminder Me</string>
+    <string name="setting_deadline_text">Deadline:</string>
 
 </resources>

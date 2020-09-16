@@ -12,6 +12,12 @@ class Utils {
             val currentDate = sdf.format(Date(timeInMilis))
             return ("Added on: $currentDate")
         }
+
+        fun reminderDateFormatter(timeInMilis: Long): String{
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+            val currentDate = sdf.format(Date(timeInMilis))
+            return ("Remider set for: $currentDate")
+        }
     }
 
 }

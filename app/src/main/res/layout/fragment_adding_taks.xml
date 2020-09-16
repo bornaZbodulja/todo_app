@@ -6,18 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.AddingTaksFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:cardCornerRadius="15dp"
+            android:layout_weight="1"
             android:layout_margin="10dp">
 
             <RelativeLayout
@@ -25,45 +25,108 @@
                 android:layout_height="match_parent"
                 android:padding="5dp">
 
+                <TextView
+                    android:id="@+id/newTaskTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/task_description"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"/>
+
                 <EditText
                     android:textSize="18sp"
                     android:id="@+id/newTaskDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_below="@id/newTaskTitle"
                     android:layout_margin="5dp"
-                    android:hint="@string/task_description"/>
+                    />
+
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/newTaskSaveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/newTaskDescription"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:background="@android:color/holo_orange_light"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:src="@android:drawable/ic_input_add"/>
+
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
 
                 <Switch
                     android:id="@+id/newTaskReminderSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/newTaskDescription"
-                    android:layout_marginTop="11dp"
+                    android:layout_marginTop="41dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="50dp"
                     android:layout_toRightOf="@id/switcherImage"/>
 
                 <ImageView
                     android:id="@+id/switcherImage"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_below="@id/newTaskDescription"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/reminder_picture"
                     android:layout_marginLeft="50dp" />
 
-                <Button
-                    android:id="@+id/newTaskSaveButton"
+                <TextView
+                    android:id="@+id/remindMeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/newTaskReminderSwitch"
-                    android:layout_marginTop="15dp"
+                    android:text="@string/reminder_text"
+                    android:layout_toRightOf="@id/switcherImage"
+                    android:layout_alignBottom="@id/switcherImage"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15sp"/>
+
+                <DatePicker
+                    android:id="@+id/newTaskDatePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/save_text"
-                    android:textStyle="bold"
-                    android:background="@color/colorAccent"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="18sp"
-                    android:padding="10dp"/>
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@id/switcherImage"
+                    />
+
+                <TextView
+                    android:id="@+id/reminderSetText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reminder set for: "
+                    android:layout_below="@id/newTaskDatePicker"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"/>
+
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

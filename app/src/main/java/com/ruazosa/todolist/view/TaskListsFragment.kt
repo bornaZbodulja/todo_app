@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ruazosa.todolist.R
 import com.ruazosa.todolist.util.TasksAdapter
 import com.ruazosa.todolist.viewmodel.TaskViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_task_lists.*
 import java.util.*
 
@@ -47,7 +48,7 @@ class TaskListsFragment : Fragment() {
             context?.let { getUnfinishedTasks(it) }
         }
 
-        tasksAdapter = TasksAdapter(tasksViewModel.tasks.value!!)
+        tasksAdapter = fragment.context?.let { TasksAdapter(tasksViewModel.tasks.value!!, context = it) }!!
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)

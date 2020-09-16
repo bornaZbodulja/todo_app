@@ -1,15 +1,20 @@
 package com.ruazosa.todolist.view
 
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
+import android.widget.DatePicker
 import androidx.navigation.Navigation
 import com.ruazosa.todolist.R
 import com.ruazosa.todolist.model.Task
 import com.ruazosa.todolist.util.TasksDatabase
+import com.ruazosa.todolist.util.Utils
 import kotlinx.android.synthetic.main.fragment_adding_taks.*
 import kotlinx.android.synthetic.main.fragment_task_lists.*
 import kotlinx.coroutines.GlobalScope
@@ -26,6 +31,9 @@ import java.util.*
  */
 class AddingTaksFragment : Fragment() {
 
+    private var reminderSwitched = false
+    private var reminderDate = Date()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +44,8 @@ class AddingTaksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setMinMaxDate()
+        dateReminderOnStart()
         newTaskSaveButton.setOnClickListener {
             val taskDescription = newTaskDescription.text.toString().trim()
             if(!taskDescription.isEmpty()){
@@ -43,6 +53,38 @@ class AddingTaksFragment : Fragment() {
                 val action = AddingTaksFragmentDirections.addedTaskDirection()
                 this.view?.let { Navigation.findNavController(it).navigate(action) }
             }
+        }
+
+        newTaskReminderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            when(isChecked){
+                true -> {
+                    reminderSwitched = true
+                    reminderSetText.visibility = View.VISIBLE
+                    newTaskDatePicker.isEnabled = true
+                }
+
+                false -> {
+                    reminderSwitched = false
+                    reminderSetText.visibility = View.INVISIBLE
+                    newTaskDatePicker.isEnabled = false
+                }
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            newTaskDatePicker.setOnDateChangedListener(object: DatePicker.OnDateChangedListener{
+                override fun onDateChanged(
+                    view: DatePicker?,
+                    year: Int,
+                    monthOfYear: Int,
+                    dayOfMonth: Int
+                ) {
+                    Log.d("CURRENT YEAR", year.toString())
+                    val currentDate = Date(year -1900, monthOfYear, dayOfMonth, 12, 0, 0)
+                    reminderDate = currentDate
+                    reminderSetText.text = Utils.reminderDateFormatter(currentDate.time)
+                }
+            })
         }
     }
 
@@ -52,5 +94,25 @@ class AddingTaksFragment : Fragment() {
             val tasksDao = context?.let { TasksDatabase(it).taskDao() }
             tasksDao?.insertTasks(newTask)
         }.start()
+    }
+
+    private fun setMinMaxDate(){
+        newTaskDatePicker.minDate = System.currentTimeMillis() - 1000
+        val maxDate = System.currentTimeMillis() + (1000*60*60*24*24)
+        newTaskDatePicker.maxDate = maxDate
+        reminderSetText.visibility = View.INVISIBLE
+    }
+
+    private fun dateReminderOnStart(){
+        val currentDate = Date(
+            newTaskDatePicker.year - 1900,
+            newTaskDatePicker.month,
+            newTaskDatePicker.dayOfMonth,
+            12,
+            0,
+            0
+        )
+        reminderSetText.text = Utils.reminderDateFormatter(currentDate.time)
+        Log.d("CURRENT DATE", currentDate.time.toString())
     }
 }
