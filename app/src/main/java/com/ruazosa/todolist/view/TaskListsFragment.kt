@@ -48,7 +48,7 @@ class TaskListsFragment : Fragment() {
             context?.let { getUnfinishedTasks(it) }
         }
 
-        tasksAdapter = fragment.context?.let { TasksAdapter(tasksViewModel.tasks.value!!, context = it) }!!
+        tasksAdapter = fragment.context?.let { TasksAdapter(tasksViewModel.tasks.value!!, context = it, taskViewModel = tasksViewModel) }!!
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)

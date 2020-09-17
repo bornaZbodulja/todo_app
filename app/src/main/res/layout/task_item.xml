@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="15dp"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="@android:color/holo_blue_light">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,6 +23,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="Task Title"
+                android:textColor="@android:color/white"
                 android:layout_margin="5dp"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -36,6 +38,16 @@
                 android:layout_centerVertical="true"
                 android:button="@drawable/custom_checkbox" />
 
+            <ImageButton
+                android:id="@+id/taskDeleteButton"
+                android:src="@drawable/ic_baseline_delete_outline_24"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"/>
+
             <TextView
                 android:id="@+id/taskDateAdded"
                 android:layout_width="wrap_content"
@@ -43,9 +55,10 @@
                 android:layout_below="@+id/taskTitle"
                 android:text="Added on:"
                 android:layout_marginTop="15dp"
-                android:layout_alignParentRight="true"
                 android:textStyle="italic"
-                android:layout_marginRight="15dp"/>
+
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

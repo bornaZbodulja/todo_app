@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ruazosa.todolist.R
 import com.ruazosa.todolist.model.Task
+import com.ruazosa.todolist.viewmodel.TaskViewModel
 import kotlinx.android.synthetic.main.task_item.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class TasksAdapter(tasksList: List<Task>, context: Context): RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+class TasksAdapter(tasksList: List<Task>, context: Context, taskViewModel: TaskViewModel): RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
 
     private var tasks: MutableList<Task> = tasksList.toMutableList()
     private val currentContext = context
+    private val viewModel = taskViewModel
 
     fun updateTasksList(newTasksList: List<Task>){
         tasks.clear()
@@ -49,18 +49,13 @@ class TasksAdapter(tasksList: List<Task>, context: Context): RecyclerView.Adapte
                 true -> { currentTask.taskChecked = 1 }
                 false -> { currentTask.taskChecked = 0 }
             }
-            updateTask(currentTask)
+            //updateTask(currentTask)
+            viewModel.updateTak(currentContext, currentTask)
 
         }
-    }
 
-    private fun updateTask(currentTask: Task){
-        GlobalScope.launch {
-            val tasksDao = TasksDatabase(currentContext).taskDao()
-            tasksDao.updateTask(currentTask)
-            val updatedTasksList = tasksDao.getUnfinishedTasks() as MutableList<Task>
-            //updateTasksList(updatedTasksList)
-
+        holder.itemView.taskDeleteButton.setOnClickListener {
+            viewModel.deleteTask(currentContext, currentTask)
         }
     }
 

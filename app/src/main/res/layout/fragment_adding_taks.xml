@@ -18,7 +18,8 @@
             android:layout_height="0dp"
             app:cardCornerRadius="15dp"
             android:layout_weight="1"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@android:color/holo_blue_light">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -30,7 +31,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/task_description"
+                    android:textColor="@android:color/white"
                     android:layout_marginTop="5dp"
+                    android:textSize="18sp"
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
@@ -39,6 +42,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textColorLink="@android:color/white"
+                    android:textColorHighlight="@android:color/white"
                     android:layout_below="@id/newTaskTitle"
                     android:layout_margin="5dp"
                     />
@@ -53,12 +59,12 @@
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"
-                    android:background="@android:color/holo_orange_light"
+                    android:backgroundTint="@android:color/holo_orange_light"
                     android:layout_marginBottom="10dp"
                     android:textSize="18sp"
                     android:padding="10dp"
                     android:clickable="true"
-                    android:src="@android:drawable/ic_input_add"/>
+                    android:src="@drawable/ic_baseline_arrow_forward_24"/>
 
 
 
@@ -71,7 +77,8 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:layout_margin="10dp"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="@android:color/holo_purple">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -104,18 +111,20 @@
                     android:layout_alignBottom="@id/switcherImage"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
                     android:textSize="15sp"/>
 
                 <DatePicker
                     android:id="@+id/newTaskDatePicker"
+                    style="@style/MyDatePickerTextAppearance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:datePickerMode="spinner"
-                    android:calendarViewShown="false"
-                    android:layout_marginTop="30dp"
                     android:layout_below="@id/switcherImage"
-                    />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:calendarTextColor="#FFFFFF"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner" />
 
                 <TextView
                     android:id="@+id/reminderSetText"
@@ -125,7 +134,8 @@
                     android:layout_below="@id/newTaskDatePicker"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:textColor="@android:color/white"/>
 
 
             </RelativeLayout>
