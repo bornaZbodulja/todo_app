@@ -5,7 +5,7 @@ import com.ruazosa.todolist.model.Task
 
 @Dao
 interface TaskDao {
-    @Query("Select * from tasks where task_checked=0 order by time_added desc")
+    @Query("Select * from tasks where task_checked like 0 order by time_added desc")
     suspend fun getUnfinishedTasks(): List<Task>
 
     @Insert

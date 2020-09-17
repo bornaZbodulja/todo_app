@@ -13,4 +13,5 @@ data class Task(
     @ColumnInfo(name = "time_added")
     var timeAdded: Long = 0,
     @ColumnInfo(name = "task_checked")
-    var taskChecked: Int = 0)
+    var taskChecked: Int = 0
+    )

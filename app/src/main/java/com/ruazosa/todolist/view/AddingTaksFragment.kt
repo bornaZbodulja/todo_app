@@ -1,5 +1,12 @@
 package com.ruazosa.todolist.view
 
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -10,9 +17,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.DatePicker
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.Navigation
 import com.ruazosa.todolist.R
 import com.ruazosa.todolist.model.Task
+import com.ruazosa.todolist.util.ReminderBroadcast
 import com.ruazosa.todolist.util.TasksDatabase
 import com.ruazosa.todolist.util.Utils
 import kotlinx.android.synthetic.main.fragment_adding_taks.*
@@ -79,7 +88,7 @@ class AddingTaksFragment : Fragment() {
                     monthOfYear: Int,
                     dayOfMonth: Int
                 ) {
-                    Log.d("CURRENT YEAR", year.toString())
+                    //Log.d("CURRENT YEAR", year.toString())
                     val currentDate = Date(year -1900, monthOfYear, dayOfMonth, 12, 0, 0)
                     reminderDate = currentDate
                     reminderSetText.text = Utils.reminderDateFormatter(currentDate.time)
@@ -89,11 +98,23 @@ class AddingTaksFragment : Fragment() {
     }
 
     private fun addTask(taskDescription: String){
-        GlobalScope.launch{
-            val newTask = Task(taskName = taskDescription, timeAdded = Date().time)
-            val tasksDao = context?.let { TasksDatabase(it).taskDao() }
-            tasksDao?.insertTasks(newTask)
-        }.start()
+        when(reminderSwitched){
+            true -> {
+                val newTask = Task(taskName = taskDescription, timeAdded = Date().time)
+                GlobalScope.launch{
+                    val tasksDao = context?.let { TasksDatabase(it).taskDao() }
+                    tasksDao?.insertTasks(newTask)
+                    setUpNotification(newTask.taskName)
+                }
+            }
+            false -> {
+                val newTask = Task(taskName = taskDescription, timeAdded = Date().time)
+                GlobalScope.launch{
+                    val tasksDao = context?.let { TasksDatabase(it).taskDao() }
+                    tasksDao?.insertTasks(newTask)
+                }
+            }
+        }
     }
 
     private fun setMinMaxDate(){
@@ -113,6 +134,19 @@ class AddingTaksFragment : Fragment() {
             0
         )
         reminderSetText.text = Utils.reminderDateFormatter(currentDate.time)
-        Log.d("CURRENT DATE", currentDate.time.toString())
+        //Log.d("CURRENT DATE", currentDate.time.toString())
+    }
+
+    private fun setUpNotification(description: String){
+        val intent = Intent(activity, ReminderBroadcast::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(activity, 0, intent, 0)
+
+        val alarmManager = activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        //val time = System.currentTimeMillis() + 1000*10
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+            reminderDate.time,
+            pendingIntent)
     }
 }
