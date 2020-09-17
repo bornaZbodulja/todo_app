@@ -139,9 +139,10 @@ class AddingTaksFragment : Fragment() {
 
     private fun setUpNotification(description: String){
         val intent = Intent(activity, ReminderBroadcast::class.java)
+        intent.putExtra(Utils.TASK_NAME, description)
         val pendingIntent = PendingIntent.getBroadcast(activity, 0, intent, 0)
-
-        val alarmManager = activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        Log.d("TASK NAME", description)
+        val alarmManager = activity?.getSystemService(ALARM_SERVICE) as AlarmManager
 
         //val time = System.currentTimeMillis() + 1000*10
 

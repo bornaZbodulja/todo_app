@@ -59,7 +59,7 @@ class TasksAdapter(tasksList: List<Task>, context: Context): RecyclerView.Adapte
             val tasksDao = TasksDatabase(currentContext).taskDao()
             tasksDao.updateTask(currentTask)
             val updatedTasksList = tasksDao.getUnfinishedTasks() as MutableList<Task>
-            updateTasksList(updatedTasksList)
+            //updateTasksList(updatedTasksList)
 
         }
     }

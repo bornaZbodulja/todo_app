@@ -8,7 +8,10 @@ import java.util.*
 
 class Utils {
 
+
     companion object {
+
+        val TASK_NAME = "task_name"
 
         fun dateFormatter(timeInMilis: Long): String {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
