@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/taskListsFragment"
         android:name="com.ruazosa.todolist.view.TaskListsFragment"
-        android:label="fragment_task_lists"
-        tools:layout="@layout/fragment_task_lists" >
+        android:label="@string/main_screen_label"
+        tools:layout="@layout/fragment_task_lists">
         <action
             android:id="@+id/addingTaskDirection"
             app:destination="@id/addingTaksFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/addingTaksFragment"
         android:name="com.ruazosa.todolist.view.AddingTaksFragment"
-        android:label="fragment_adding_taks"
-        tools:layout="@layout/fragment_adding_taks" >
+        android:label="@string/add_new_task_screen_label"
+        tools:layout="@layout/fragment_adding_taks">
         <action
             android:id="@+id/addedTaskDirection"
             app:destination="@id/taskListsFragment" />
