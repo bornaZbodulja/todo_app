@@ -119,7 +119,7 @@ class AddingTaksFragment : Fragment() {
 
     private fun setMinMaxDate(){
         newTaskDatePicker.minDate = System.currentTimeMillis() - 1000
-        val maxDate = System.currentTimeMillis() + (1000*60*60*24*24)
+        val maxDate = System.currentTimeMillis() + (1000*60*60*24*24) // (1000*60*60*24*24)
         newTaskDatePicker.maxDate = maxDate
         reminderSetText.visibility = View.INVISIBLE
     }
