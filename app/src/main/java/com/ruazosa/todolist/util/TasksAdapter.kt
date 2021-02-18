@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.ruazosa.todolist.R
 import com.ruazosa.todolist.model.Task
 import com.ruazosa.todolist.viewmodel.TaskViewModel
@@ -44,19 +46,40 @@ class TasksAdapter(tasksList: List<Task>, context: Context, taskViewModel: TaskV
         }
         holder.itemView.taskDateAdded.text = Utils.dateFormatter(currentTask.timeAdded)
 
-        holder.itemView.taskCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
-            when(isChecked){
+        holder.itemView.taskCheckBox.setOnClickListener {
+            when(holder.itemView.taskCheckBox.isChecked){
                 true -> { currentTask.taskChecked = 1 }
                 false -> { currentTask.taskChecked = 0 }
             }
-            //updateTask(currentTask)
-            viewModel.updateTak(currentContext, currentTask)
-
+            checkTaskSnackbar(currentTask, it)
+            viewModel.updateTask(currentContext, currentTask)
         }
 
         holder.itemView.taskDeleteButton.setOnClickListener {
+            deleteTaskSnackbar(currentTask, it)
             viewModel.deleteTask(currentContext, currentTask)
         }
+    }
+
+    private fun deleteTaskSnackbar(deletedTask: Task, view:View){
+        val snackbar = Snackbar.make(view, "Task successfully deleted", Snackbar.LENGTH_LONG)
+        snackbar.setAction("UNDO") {
+            viewModel.insertTask(currentContext, deletedTask)
+            snackbar.dismiss()
+            // Toast.makeText(currentContext,"Undo action",Toast.LENGTH_SHORT).show()
+        }
+        snackbar.show()
+    }
+
+    private fun checkTaskSnackbar(checkedTask: Task, view:View){
+        val snackbar = Snackbar.make(view, "Task checked off", Snackbar.LENGTH_LONG)
+        snackbar.setAction("UNDO") {
+            checkedTask.taskChecked = if (checkedTask.taskChecked == 1) 0 else 1
+            viewModel.updateTask(currentContext, checkedTask)
+            snackbar.dismiss()
+            // Toast.makeText(currentContext,"Undo action",Toast.LENGTH_SHORT).show()
+        }
+        snackbar.show()
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {

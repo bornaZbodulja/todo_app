@@ -35,7 +35,7 @@ class TaskViewModel(application: Application): BaseViewModel(application) {
         }
     }
 
-    fun updateTak(context: Context, task: Task){
+    fun updateTask(context: Context, task: Task){
         launch {
             val tasksDao = TasksDatabase(context).taskDao()
             tasksDao.updateTask(task)
